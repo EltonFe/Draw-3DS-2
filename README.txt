@@ -1,0 +1,1 @@
+This program was created in C ++ Builder and has the prosito to draw graphs in 3D using only mathematics although it is not finished because it requires time but it is like learning how simple functions can generate good things.
