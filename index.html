@@ -1,0 +1,215 @@
+<html>
+	<title>TillOf And Help</title>
+
+	<head>
+
+		<style>
+			h1 {text-align: center;}
+			h2 {text-align: center;}
+			p {text-align: center;}
+			div {text-align: center;}
+		</style>
+
+		
+
+	</head>
+
+	<body>
+		</br></br>
+		<h2>Pagina de Programaçao em C e C++ com TillOfHelp</h2>
+
+</div></br>
+		Antes:
+</br></br>"Todo mundo tem uma estrela interior esperando para brilhar, que só está aguardando uma única gota de faísca para explodir e iluminar todo o universo, então por que? Você deixa seu sucesso esperando. Pergunte ao seu coração qual é o seu maior desejo e não aquele que lhe renderar maior lucro por que acima de tudo a sua felicidade é a coisa mais importante deste mundo certo."
+
+</br></br>
+Eu ainda estou tentando entender melhor sobre estrutura de dados e anteriormente estava falando sobre pilhas. E agora vou dizer algo sobre filas.
+Filas funcionam como em uma fila real, aquela que enfrentamos quando vamos ao banco, cinema, lanchonete e tals. Mas em computação elas são muito úteis quando precisamos por ordem na casa por exemplo se estivermos falando de impressoras, mas aquelas caseiras do tipo mais comum, voces podem perceber que os arquivos vão chegando e sendo impressos e na medida que chegam vão entrando em estruturas tipo fila e os primeiros são sendo impressos sem nenhum tipo de prioridade, simplesmente chegam e aguardam sua vez para que sejam executados a tarefa.
+Aqui em baixo está um pequeno código extraído de um livro ao qual não posso mencionar porque li a muito tempo e devido a isso não lembro seu nome, e nem autor.
+Posteriormente vou postar meu próprio código.
+
+</br>Esse foi construido no C++ Builder Community Edition obtido gratuitamente em embarcadero.com
+
+</br>Este é um exemplo de uma fila do tipo estática onde os endereços foram alocados estáticamente com maloc que é uma função do C que trabalha muito bem. Em C++ você faria com nome reservado new própria para o C++. Mas eu geralmente uso realloc por que sempre estou precisando de mais endereços.
+
+</br></br>Se voce não estiver familiarizado com algumas diretivas de compilação não se preocupe ok. Eu tambem me enrolo muito com elas.
+
+</br></br>Este é o codigo do que contem o main mais em baixo tem um outro código que você deve por em um arquivo FileFila.h que vai ser chamado junto com o projeto na diretiva #include "FileFila.h", coloque-o na mesma pasta do arquivo .c.
+ 
+</br></br></br>#pragma hdrstop
+</br>#pragma argsused
+
+</br>#include <stdio.h>
+</br>#include <stdlib.h>
+</br>#include "FileFila.h"
+</br>#ifdef _WIN32
+</br>#include <tchar.h>
+</br>#else
+</br>  typedef char _TCHAR;
+</br>  #define _tmain main
+</br>#endif
+</br>void Insere_Pilha(struct Estrutura_Fila *Fila);
+</br>void Faz_Retirada(struct Estrutura_Fila *Fila);
+</br>int _tmain(int argc, _TCHAR* argv[]) 
+</br>{
+</br>   int x=12;
+</br>   int Escolha=100;
+</br>   struct Estrutura_Fila *Fila;
+</br></br>
+
+</br>		Fila=Cria_Fila(10);
+</br>		do{
+</br>			printf("\n\n\t\tDigite 1 Para Inserir..!!!");
+</br>			printf("\n\n\t\tDigite 2 Para Fazer Uma Retirada..!!");
+</br>			printf("\n\n\t\tDigite 0 Para Sair..!!!");
+</br>			printf("\n\n\t\tDigite Sua Escolha Agora..:");
+</br>			scanf("%d",&Escolha);
+</br>			switch(Escolha){
+</br>				 case 0:    system("cls");
+</br>							printf("\n\n\t\tO Programa Vai Encerrar");
+</br>							printf("\n\n\t\t");
+</br>							system("pause");
+</br>				 break;
+</br>				 case 1:    system("cls");
+</br>							Insere_Pilha(Fila);
+</br>							printf("\n\n\t\t");
+</br>							system("pause");
+</br>				 break;
+</br>
+</br>				 case 2:    system("cls");
+</br>							Faz_Retirada(Fila);
+</br>							printf("\n\n\t\t");
+</br>							system("pause");
+</br>				 break;
+</br>
+</br>
+</br>				default:    system("cls");
+</br>							printf("\n\n\n\t\tNenhuma Opcao Valida Foi Escolhida..!!!");
+</br>							printf("\n\n\t\t");
+</br>			}
+</br>
+</br>		}while(Escolha!=0);
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>	system("pause");
+</br>	return 0;
+</br>}
+</br>void Insere_Pilha(struct Estrutura_Fila *Fila){
+</br>
+</br>int Numero;
+</br>
+</br>	printf("\n\n\t\tDigite O Numero A Ser Inserido..:");
+</br>	scanf("%d",&Numero);
+</br>	Adciona_Fila(Fila,Numero);
+</br>
+</br>}
+</br>void Faz_Retirada(struct Estrutura_Fila *Fila){
+</br>
+</br>int Numero;
+</br>	Numero=Retira_Fila(Fila);
+</br>	printf("\n\n\t\tNumero..:%d",Numero);
+</br>
+</br>
+</br>}
+</br>
+</br>
+</br>
+</br>codigo do FileFila.h
+</br>
+</br>#include <stdlib.h>
+</br>#include <stdio.h>
+</br>
+</br>struct Estrutura_Fila{
+</br> int *Numero;
+</br> int Inicio;
+</br> int Topo;
+</br> int Tamanho;
+</br> int Tamanho_Maximo;
+</br>
+</br>}*Fila;
+
+</br>int Avanca(int x,int Tamanho);
+</br>void Adciona_Fila(struct Estrutura_Fila *Fila,int Numero);
+</br>int Retira_Fila(struct Estrutura_Fila *Fila);
+</br>void Exibir_Lista(struct Estrutura_Fila *Fila);
+</br>
+</br>struct Estutura_Fila *Cria_Fila(int Numero_Fila){
+</br>
+</br>struct Estrutura_Fila * Cria_F;
+</br>
+</br>Cria_F=(struct Estrutura_Fila *)malloc(sizeof(struct Estrutura_Fila));
+</br>Cria_F->Topo=0;
+</br>Cria_F->Inicio=0;
+</br>Cria_F->Tamanho=0;
+</br>Cria_F->Tamanho_Maximo=Numero_Fila;
+</br>Cria_F->Numero=(int *)malloc(Numero_Fila*sizeof(int));
+</br>
+</br>return Cria_F;
+</br>}
+</br>
+</br>void Adciona_Fila(struct Estrutura_Fila *Fila,int Numero){
+</br>	if(Fila!=NULL){
+</br>		Fila->Tamanho++;
+</br>		if(Fila->Tamanho<=Fila->Tamanho_Maximo){
+</br>			Fila->Topo=Avanca(Fila->Topo,Fila->Tamanho_Maximo);
+</br>			Fila->Numero[Fila->Topo-1]=Numero;
+</br>
+</br>		}else{
+</br>			Fila->Tamanho--;
+</br>			printf("\n\n\t\tEstouro Na Fila...");
+</br>		}
+</br>	}else
+</br>	printf("\n\n\t\tFalha Na Recuperacao Da Pilha..!!");
+</br>
+</br>
+</br>
+</br>}
+</br>int Retira_Fila(struct Estrutura_Fila *Fila){
+</br>  if(Fila!=NULL){
+</br>
+</br>		if(Fila->Tamanho>0 ){
+</br>			Fila->Inicio=Avanca(Fila->Inicio,Fila->Tamanho_Maximo);
+</br>			Fila->Tamanho--;
+</br>
+</br>			return Fila->Numero[Fila->Inicio];
+</br>
+</br>		}else{
+</br>			printf("\n\n\t\tFila Vazia..!!!");
+</br>
+</br>			return 0;
+</br>		}
+</br>
+</br>  }else{
+</br>	printf("\n\n\t\tFila Nao Alocada..!!!");
+</br>	return 0;
+</br>  }
+</br>}
+
+</br>int Avanca(int x,int Tamanho_Maximo){
+</br>x+=1;
+</br>return x%Tamanho_Maximo;
+</br>
+</br>
+</br>}
+</br>
+</br>void Exibir_Lista(struct Estrutura_Fila *Fila){
+</br>	int i;
+</br>	printf("\n\n\t\tExibindo Lista Completa: ");
+</br>	if(Fila->Topo!=0){
+</br>		printf("\n");
+</br>		for( i=0;i<Fila->Topo;i++)
+</br>			printf("\n\t\tPosicao %d: %d",i+1,Fila->Numero[i]);
+</br>	}
+</br>	else
+</br>		printf("Lista Totalmente Vazia...");
+</br>}
+
+
+	</body>
+
+</html>
